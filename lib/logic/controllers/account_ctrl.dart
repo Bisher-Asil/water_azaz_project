@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:water_azaz_project/config/routes/routes.dart';
 
 class AccountController extends GetxController {
   
@@ -8,7 +9,7 @@ class AccountController extends GetxController {
   final RxBool rememberMe = false.obs;
 
  void signIn(String userName, String password) async {
-    
+    Get.toNamed(Routes.feedbackScreen);
   }
 RxBool resetPasswordCodeStatus = false.obs;
 String resetPasswordUserEmail = "";
