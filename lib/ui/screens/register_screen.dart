@@ -90,7 +90,7 @@ class RegisterScreen extends StatelessWidget {
                         },
                         child: Text(accountController.signInStatus.value ? "تأكيد التعديل" : 'تسجيل'),
                       ),
-                      accountController.signInStatus.value ? ElevatedButton(onPressed: ()=> accountController.deleteUserRequest(_passwordController.text), child: Text("حذف الحساب")) : Container()
+                     // accountController.signInStatus.value ? ElevatedButton(onPressed: ()=> accountController.deleteUserRequest(_passwordController.text), child: Text("حذف الحساب")) : Container()
                     ],
                   ),
                 ),

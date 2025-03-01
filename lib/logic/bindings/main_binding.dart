@@ -2,7 +2,7 @@
 import 'package:get/get.dart';
 import 'package:water_azaz_project/logic/controllers/water_quality_ctrl.dart';
 
-import '../../config/routes/routes.dart';
+//import '../../config/routes/routes.dart';
 
 class MainBinding implements Bindings {
   @override
