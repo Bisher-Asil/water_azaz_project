@@ -24,7 +24,8 @@ void resetPasswordScreenEntered(){
    
   }
 
-  void registerUserRequest(String fullName, String phone, String password) async{
+  void registerUserRequest(String fullName, String phone, String password, double lat, double lng) async{
+    print( "Registering user with name: $fullName, phone: $phone, password: $password, lat: $lat, lng: $lng");
   }
 
    void deleteUserRequest(String password) async{

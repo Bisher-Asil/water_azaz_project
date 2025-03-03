@@ -31,12 +31,15 @@ class WaterQualityScreen extends StatelessWidget {
               ),
             ),
             Obx(() => controller.waterColor.value == 'أخرى'
-                ? TextField(
+                ? Directionality(
                   textDirection: TextDirection.rtl,
-                    controller: otherWaterColorCtrl,
-                    decoration: const InputDecoration(labelText: 'حدد اللون'),
-                    onChanged: (value) => controller.otherWaterColor.value = value,
-                  )
+                  child: TextField(
+                    textDirection: TextDirection.rtl,
+                      controller: otherWaterColorCtrl,
+                      decoration: const InputDecoration(labelText: 'حدد اللون'),
+                      onChanged: (value) => controller.otherWaterColor.value = value,
+                    ),
+                )
                 : const SizedBox()),
 
             Directionality(
