@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:water_azaz_project/logic/controllers/water_quality_ctrl.dart';
 import 'package:water_azaz_project/ui/widgets/thank_you_dialog.dart';
 
@@ -58,7 +59,7 @@ class WaterSupplyScreen extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   child: TextField(
                     textDirection: TextDirection.rtl,
-                    decoration: const InputDecoration(labelText: 'كيف برأيكم يجب ان يكون تواتر ضخ المياه عبر الشبكة؟'),
+                    decoration: const InputDecoration(labelText: 'كيف برأيكم يجب ان يكون تواتر ضخ المياه عبر الشبكة؟',labelStyle: TextStyle(fontSize: 14)),
                     onChanged: (value) => controller.flowSuggestion.value = value,
                   ),
                 );
