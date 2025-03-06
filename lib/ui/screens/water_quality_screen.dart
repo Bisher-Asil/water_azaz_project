@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_azaz_project/logic/controllers/water_quality_ctrl.dart';
+import 'package:water_azaz_project/ui/widgets/thank_you_dialog.dart';
 
 class WaterQualityScreen extends StatelessWidget {
   const WaterQualityScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class WaterQualityScreen extends StatelessWidget {
               textDirection: TextDirection.rtl,
               child: DropdownButtonFormField<String>(
                 decoration: const InputDecoration(labelText: 'لون المياه'),
-                items: ['شفافة', 'صفراء', 'بنية', 'سوداء', 'أخرى']
+                items: ['شفافة', 'صفراء', 'بنية', 'أخرى']
                     .map((e) => DropdownMenuItem(value: e, child: Align(
               alignment: Alignment.centerRight, // Align text to the right
               child: Text(e, textDirection: TextDirection.rtl),
@@ -46,7 +47,7 @@ class WaterQualityScreen extends StatelessWidget {
               textDirection: TextDirection.rtl,
               child: DropdownButtonFormField<String>(
                 decoration: const InputDecoration(labelText: 'طعم المياه'),
-                items: ['عديم الطعم', 'طعم كلور قوي', 'طعم معدني', 'طعم آخر']
+                items: ['عديم الطعم', 'طعم كلور قوي', 'طعم آخر']
                     .map((e) => DropdownMenuItem(value: e, child: Align(
                 alignment: Alignment.centerRight, // Align text to the right
                 child: Text(e, textDirection: TextDirection.rtl),
@@ -67,7 +68,7 @@ class WaterQualityScreen extends StatelessWidget {
                 )
                 : const SizedBox()),
                             ElevatedButton(
-              onPressed: () => print("WOW"),
+              onPressed: () => showThankYouDialog(context),
               child: const Text('إرسال التقييم'),),
           ],
         ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_azaz_project/logic/controllers/water_quality_ctrl.dart';
+import 'package:water_azaz_project/ui/widgets/thank_you_dialog.dart';
 
 
 class ComplaintScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class ComplaintScreen extends StatelessWidget {
                 ? Image.file(File(controller.attachedMedia.value!.path))
                 : const SizedBox()),
                             ElevatedButton(
-              onPressed: () => print("WOW"),
+              onPressed: () => showThankYouDialog(context), //TODO: Make this appear in the controller not here...
               child: const Text('إرسال التقييم'),),
           ],
         ),

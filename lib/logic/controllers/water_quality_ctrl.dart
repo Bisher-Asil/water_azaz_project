@@ -15,6 +15,9 @@ class WaterQualityController extends GetxController {
 
   var otherWaterColor = ''.obs;
   var otherWaterTaste = ''.obs;
+  
+  var waterSufficiency = ''.obs;
+  var flowSuggestion = ''.obs;
 
   Future<void> pickMedia() async {
   final ImagePicker picker = ImagePicker();

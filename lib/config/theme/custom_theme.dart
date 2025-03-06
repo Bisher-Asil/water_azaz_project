@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const Color greyBlue = Color(0xff597393);
 const Color greyWhite = Color(0xffDDEAF3);
-const Color topBarLightGreen= Color.fromARGB(255, 85, 139, 47);
+const Color topBarLightGreen = Color.fromARGB(255, 85, 139, 47);
 const Color busyColor = Color(0xFFF2C94C);
 const Color availableColor = Color(0xFF37D858);
 const Color offlineColor = Color(0xFFEB5757);
 const Color nullColor = Color(0xFF222733);
-
-
 
 class CustomAppTheme {
   CustomAppTheme._internal();
@@ -28,7 +27,9 @@ class CustomAppTheme {
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Colors.black,
         ),
-        textTheme: ThemeData.light().textTheme.apply(
+        textTheme: GoogleFonts.alexandriaTextTheme(
+          ThemeData.light().textTheme,
+        ).apply(
           bodyColor: Colors.black,
           displayColor: Colors.black,
         ),
@@ -37,6 +38,9 @@ class CustomAppTheme {
             backgroundColor: Colors.black, // Button background
             foregroundColor: Colors.white, // Button text
           ),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
         ),
       );
 
@@ -59,7 +63,9 @@ class CustomAppTheme {
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Colors.white,
         ),
-        textTheme: ThemeData.dark().textTheme.apply(
+        textTheme: GoogleFonts.alexandriaTextTheme(
+          ThemeData.dark().textTheme,
+        ).apply(
           bodyColor: Colors.white,
           displayColor: Colors.white,
         ),

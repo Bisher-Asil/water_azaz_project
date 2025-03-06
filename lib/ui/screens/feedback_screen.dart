@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:water_azaz_project/config/routes/routes.dart';
 import 'package:water_azaz_project/ui/screens/complaint_screen.dart';
 import 'package:water_azaz_project/ui/screens/water_quality_screen.dart';
 import 'package:water_azaz_project/ui/screens/water_supply_screen.dart';
@@ -30,6 +31,11 @@ class FeedbackScreen extends StatelessWidget {
               icon: Icons.report_problem,
               label: 'إرسال شكوى',
               onPressed: () => Get.to(() => ComplaintScreen()),
+            ),
+            _buildIconButton(
+              icon: Icons.info,
+              label: 'حول التطبيق',
+              onPressed: () => Get.toNamed(Routes.aboutUsScreen),
             ),
           ],
         ),

@@ -63,7 +63,6 @@ class RegisterScreen extends StatelessWidget {
     final AccountController accountController = Get.find();
     final _NameController = TextEditingController();
     final _phoneController = TextEditingController();
-    final _emailController = TextEditingController();
     final _passwordController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
     return Obx(() => Scaffold(
