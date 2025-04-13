@@ -1,34 +1,81 @@
 import 'package:get/get.dart';
 import 'package:water_azaz_project/config/routes/routes.dart';
+import 'package:water_azaz_project/services/auth_service.dart';
 
 class AccountController extends GetxController {
-  
   var isLoading = false.obs;
-
   var signInStatus = false.obs;
   final RxBool rememberMe = false.obs;
 
- void signIn(String userName, String password) async {
-    Get.toNamed(Routes.feedbackScreen);
+  final AuthService _authService = AuthService();
+
+  void signIn(String userName, String password) async {
+    isLoading.value = true;
+    try {
+      final response = await _authService.login(userName, password);
+      bool success = response['success'] ?? false;
+      if (success) {
+        signInStatus.value = true;
+        Get.toNamed(Routes.feedbackScreen);
+      } else {
+        signInStatus.value = false;
+        Get.snackbar("Error", "Invalid username or password");
+      }
+    } finally {
+      isLoading.value = false;
+    }
   }
-RxBool resetPasswordCodeStatus = false.obs;
-String resetPasswordUserEmail = "";
-String resetPasswordCode = "";
 
-void resetPasswordScreenEntered(){
-  resetPasswordCodeStatus.value = false;
-  resetPasswordUserEmail = "";
-  resetPasswordCode = "";
-}
-  void passwordResetRequest(String email) async{
-   
+  RxBool resetPasswordCodeStatus = false.obs;
+  String resetPasswordUserEmail = "";
+  String resetPasswordCode = "";
+
+  void resetPasswordScreenEntered() {
+    resetPasswordCodeStatus.value = false;
+    resetPasswordUserEmail = "";
+    resetPasswordCode = "";
   }
 
-  void registerUserRequest(String fullName, String phone, String password, double lat, double lng) async{
-    print( "Registering user with name: $fullName, phone: $phone, password: $password, lat: $lat, lng: $lng");
+  void passwordResetRequest(String email) async {
+    /*isLoading.value = true;
+    try {
+      bool success = await _authService.requestPasswordReset(email);
+      if (success) {
+        resetPasswordUserEmail = email;
+        Get.snackbar("Success", "Password reset email sent");
+      } else {
+        Get.snackbar("Error", "Failed to send password reset email");
+      }
+    } finally {
+      isLoading.value = false;
+    }*/
   }
 
-   void deleteUserRequest(String password) async{
+  void registerUserRequest(String fullName, String phone, String password, double lat, double lng) async {
+   /* isLoading.value = true;
+    try {
+      bool success = await _authService.registerUser(fullName, phone, password, lat, lng);
+      if (success) {
+        Get.snackbar("Success", "User registered successfully");
+      } else {
+        Get.snackbar("Error", "Failed to register user");
+      }
+    } finally {
+      isLoading.value = false;
+    }*/
+  }
 
+  void deleteUserRequest(String password) async {
+  /*  isLoading.value = true;
+    try {
+      bool success = await _authService.deleteUser(password);
+      if (success) {
+        Get.snackbar("Success", "User deleted successfully");
+      } else {
+        Get.snackbar("Error", "Failed to delete user");
+      }
+    } finally {
+      isLoading.value = false;
+    }*/
   }
 }

@@ -13,8 +13,8 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
   // final AccountController accountController = Get.find();
   var accountController = Get.put<AccountController>(AccountController(), permanent: true);
-  final TextEditingController usernameController = TextEditingController(text: "test@test.tst");
-  final TextEditingController passwordController = TextEditingController(text:"123456");
+  final TextEditingController usernameController = TextEditingController(text: "+123456789000");
+  final TextEditingController passwordController = TextEditingController(text:"Q1w2e3.");
     return Scaffold(
       body: Obx(
         () {
