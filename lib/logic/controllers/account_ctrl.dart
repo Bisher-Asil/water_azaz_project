@@ -18,8 +18,7 @@ class AccountController extends GetxController {
       // Check if the token exists in the response
       if (response.containsKey('token') && response['token'] != null) {
         signInStatus.value = true;
-        _authService.getUserProfile(response['token']); // Delete this line !!!!!!!!!!!!!!!!!
-        Get.toNamed(Routes.feedbackScreen);
+        Get.offAllNamed(Routes.feedbackScreen);
       } else {
         signInStatus.value = false;
         Get.snackbar("Error", "Invalid username or password");
@@ -62,7 +61,7 @@ class AccountController extends GetxController {
       bool success = await _authService.register(fullName: fullName, phoneNumber: phone, password: password, locationLatitude: lat.toString(), locationLongitude: lng.toString(),address: address, confirmPassword: password);
       if (success) {
         Get.snackbar("Success", "User registered successfully");
-        Get.toNamed(Routes.signInScreen);
+        Get.offNamed(Routes.signInScreen);
       } else {
         Get.snackbar("Error", "Failed to register user");
       }

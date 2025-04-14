@@ -76,7 +76,7 @@ class RegisterScreen extends StatelessWidget {
               children: [
                 Center(
               child: Image.asset(
-                'assets/images/logo.png', // Replace with your logo asset path
+                'assets/images/EngGate.png', // Replace with your logo asset path
                 height: 150.0,
               ),
             ),
