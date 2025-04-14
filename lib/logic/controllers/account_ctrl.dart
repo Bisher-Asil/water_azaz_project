@@ -13,14 +13,19 @@ class AccountController extends GetxController {
     isLoading.value = true;
     try {
       final response = await _authService.login(userName, password);
-      bool success = response['success'] ?? false;
-      if (success) {
+      print('Login Response: $response'); // Debug log to inspect the response
+
+      // Check if the token exists in the response
+      if (response.containsKey('token') && response['token'] != null) {
         signInStatus.value = true;
+        _authService.getUserProfile(response['token']); // Delete this line !!!!!!!!!!!!!!!!!
         Get.toNamed(Routes.feedbackScreen);
       } else {
         signInStatus.value = false;
         Get.snackbar("Error", "Invalid username or password");
       }
+    } catch (e) {
+      Get.snackbar("Error", "An error occurred: $e");
     } finally {
       isLoading.value = false;
     }
@@ -51,18 +56,19 @@ class AccountController extends GetxController {
     }*/
   }
 
-  void registerUserRequest(String fullName, String phone, String password, double lat, double lng) async {
-   /* isLoading.value = true;
+  void registerUserRequest(String fullName, String phone, String password, double lat, double lng, String address) async {
+   isLoading.value = true;
     try {
-      bool success = await _authService.registerUser(fullName, phone, password, lat, lng);
+      bool success = await _authService.register(fullName: fullName, phoneNumber: phone, password: password, locationLatitude: lat.toString(), locationLongitude: lng.toString(),address: address, confirmPassword: password);
       if (success) {
         Get.snackbar("Success", "User registered successfully");
+        Get.toNamed(Routes.signInScreen);
       } else {
         Get.snackbar("Error", "Failed to register user");
       }
     } finally {
       isLoading.value = false;
-    }*/
+    }
   }
 
   void deleteUserRequest(String password) async {

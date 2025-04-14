@@ -64,6 +64,7 @@ class RegisterScreen extends StatelessWidget {
     final _NameController = TextEditingController();
     final _phoneController = TextEditingController();
     final _passwordController = TextEditingController();
+    final _addressController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
     return Obx(() => Scaffold(
       body: Padding(
@@ -122,6 +123,18 @@ class RegisterScreen extends StatelessWidget {
                         controller: _passwordController,
                         keyboardType: TextInputType.text,
                       ) ,
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'العنوان'),
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'يرجى ادخال العنوان';
+                          }
+                          return null;
+                        },
+                        controller: _addressController,
+                      ),
                       const SizedBox(height: 20),
                       Row(
                         children: [
@@ -141,9 +154,10 @@ class RegisterScreen extends StatelessWidget {
                               var password = _passwordController.text;
                               var latitude = position.latitude;
                               var longitude = position.longitude;
+                              var address = _addressController.text;
 
                               // Send the registration information along with the location to the controller
-                              accountController.registerUserRequest(fullName, phone, password, latitude, longitude);
+                              accountController.registerUserRequest(fullName, phone, password, latitude, longitude, address);
                             } catch (e) {
                               // Handle the error if location permissions are denied
                               print(e);
