@@ -3,15 +3,40 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:water_azaz_project/config/routes/routes.dart';
 import 'package:water_azaz_project/services/auth_service.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AccountController extends GetxController {
   var isLoading = false.obs;
   var signInStatus = false.obs;
   final RxBool rememberMe = false.obs;
+  var savedUsername = ''.obs;
+  var savedPassword = ''.obs;
 
   var phoneNumber = ''.obs;
 
+
+  final _storage = GetStorage();
+  static const String REMEMBER_ME_KEY = 'remember_me';
+  static const String USERNAME_KEY = 'username';
+  static const String PASSWORD_KEY = 'password';
+
   final AuthService _authService = Get.find<AuthService>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    _loadSavedCredentials();
+  }
+
+  void _loadSavedCredentials() {
+    bool? savedRememberMe = _storage.read(REMEMBER_ME_KEY);
+    if (savedRememberMe == true) {
+      rememberMe.value = true;
+      savedUsername.value = _storage.read(USERNAME_KEY) ?? '';
+      savedPassword.value = _storage.read(PASSWORD_KEY) ?? '';
+    }
+  }
+  
 
   void signIn(String userName, String password) async {
     isLoading.value = true;
@@ -21,8 +46,21 @@ class AccountController extends GetxController {
 
       // Check if the token exists in the response
       if (response.containsKey('token') && response['token'] != null) {
+        // Save credentials if remember me is checked
+        if (rememberMe.value) {
+          await _storage.write(USERNAME_KEY, userName);
+          await _storage.write(PASSWORD_KEY, password);
+          await _storage.write(REMEMBER_ME_KEY, true);
+        } else {
+          // Clear saved credentials if remember me is unchecked
+          await _storage.remove(USERNAME_KEY);
+          await _storage.remove(PASSWORD_KEY);
+          await _storage.remove(REMEMBER_ME_KEY);
+        }
+        
         signInStatus.value = true;
         Get.put(_authService); // Store the AuthService instance in GetX
+        
         Get.offAllNamed(Routes.feedbackScreen);
       } else {
         signInStatus.value = false;

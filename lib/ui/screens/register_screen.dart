@@ -102,11 +102,19 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
-                          decoration: InputDecoration(labelText: 'رقم الهاتف'),
+                          decoration: InputDecoration(labelText: 'رقم الهاتف', helperText: "05XXXXXXXX"),
                           keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'يرجى ادخال رقم الهاتف';
+                            }
+                            else{
+                              if (value.length < 10) {
+                                return 'رقم الهاتف يجب أن يكون 10 أرقام';
+                              }
+                              if (value.length > 10) {
+                                return 'رقم الهاتف يجب أن يكون 10 أرقام';
+                              }
                             }
                             return null;
                           },

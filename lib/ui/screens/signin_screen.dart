@@ -11,10 +11,10 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  // final AccountController accountController = Get.find();
-  var accountController = Get.put<AccountController>(AccountController(), permanent: true);
-  final TextEditingController usernameController = TextEditingController(text: "+123456789000");
-  final TextEditingController passwordController = TextEditingController(text:"Q1w2e3.");
+    var accountController = Get.put<AccountController>(AccountController(), permanent: true);
+    final TextEditingController usernameController = TextEditingController(text: accountController.savedUsername.value);
+    final TextEditingController passwordController = TextEditingController(text: accountController.savedPassword.value);
+
     return Scaffold(
       body: Obx(
         () {
@@ -51,6 +51,7 @@ class SignInScreen extends StatelessWidget {
                   Center(
                     child: Text(
                       'أهلا و سهلا',
+                      textDirection: TextDirection.rtl,
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -61,47 +62,68 @@ class SignInScreen extends StatelessWidget {
                   const SizedBox(height: 20.0),
           
                   // Username input field
-                  TextField(
-                    controller: usernameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: TextField(
+                      controller: usernameController,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        labelText: 'رقم الهاتف',
+                        labelStyle: const TextStyle(
+                          textBaseline: TextBaseline.alphabetic,
+                        ),
+                        prefixIcon: const Icon(Icons.person),
+                        alignLabelWithHint: true,
                       ),
-                      labelText: 'رقم الهاتف',
-                      prefixIcon: const Icon(Icons.person),
+                      keyboardType: TextInputType.phone,
                     ),
-                    keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 16.0),
           
                   // Password input field
-                  TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: TextField(
+                      controller: passwordController,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        labelText: 'كلمة السر',
+                        labelStyle: const TextStyle(
+                          textBaseline: TextBaseline.alphabetic,
+                        ),
+                        prefixIcon: const Icon(Icons.lock),
+                        alignLabelWithHint: true,
                       ),
-                      labelText: 'كلمة السر',
-                      prefixIcon: const Icon(Icons.lock),
+                      obscureText: true,
                     ),
-                    obscureText: true,
                   ),
                   const SizedBox(height: 10.0),
-          
+
                   // Remember Me checkbox
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Obx(
-                        () => Checkbox(
-                          value: accountController.rememberMe.value,
-                          onChanged: (bool? value) {
-                            accountController.rememberMe.value = value ?? false;
-                          },
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text('تذكرني'),
+                        Obx(
+                          () => Checkbox(
+                            value: accountController.rememberMe.value,
+                            onChanged: (bool? value) {
+                              accountController.rememberMe.value = value ?? false;
+                            },
+                          ),
                         ),
-                      ),
-                      Text('تذكرني'),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 10.0),
           
