@@ -1,37 +1,38 @@
-
-import 'dart:io';
-
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:water_azaz_project/services/auth_service.dart';
+import 'package:water_azaz_project/services/quality_service.dart';
 
 class WaterQualityController extends GetxController {
+  AuthService authService = Get.find<AuthService>();
+
+  
   var waterColor = ''.obs;
   var waterTaste = ''.obs;
-  var waterFrequency = ''.obs;
-  var pumpingHours = ''.obs;
-  var complaintType = ''.obs;
-  var complaintDescription = ''.obs;
-  var attachedMedia = Rx<XFile?>(null);
 
+  
   var otherWaterColor = ''.obs;
   var otherWaterTaste = ''.obs;
   
-  var waterSufficiency = ''.obs;
-  var flowSuggestion = ''.obs;
 
-  Future<void> pickMedia() async {
-  final ImagePicker picker = ImagePicker();
-
-  // Let the system handle media selection (photo or video)
-  final XFile? file = await picker.pickMedia();
-
-  if (file != null) {
-    File mediaFile = File(file.path);
-    print("Media picked: ${mediaFile.path}");
-    
-    // Use the selected media file as needed
-  } else {
-    print("No media selected.");
+  void postWaterQualityFeedback() async{
+    String? token = await authService.getToken();
+    if(token == null) {
+      Get.snackbar("Error", "User not authenticated");
+      return;
+    }
+    String sendWaterColor = waterColor.value == 'أخرى' ? otherWaterColor.value : waterColor.value;
+    String sendWaterTaste = waterTaste.value ==  'طعم آخر' ? otherWaterTaste.value : waterTaste.value;
+    if(sendWaterColor.isEmpty || sendWaterTaste.isEmpty) {
+      Get.snackbar("خطأ", "يرجى ملء جميع الحقول");
+      return;
+    }
+    bool success = await QualityService.postWaterQuality(token, sendWaterColor, sendWaterTaste);
+    if(success) {
+      Get.snackbar("نجحت العملية", "تم ارسال رأيكم بنجاح");
+    } else {
+      Get.snackbar("خطأ", "يرجى المحاولة لاحقاً");
+    }
   }
-}
+
+  
 }

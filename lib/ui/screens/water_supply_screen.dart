@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:water_azaz_project/logic/controllers/water_quality_ctrl.dart';
+import 'package:water_azaz_project/logic/controllers/water_flow_ctrl.dart';
 import 'package:water_azaz_project/ui/widgets/thank_you_dialog.dart';
 
 class WaterSupplyScreen extends StatelessWidget {
@@ -9,7 +8,8 @@ class WaterSupplyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final WaterQualityController controller = Get.find();
+    final WaterFlowController controller = Get.find<WaterFlowController>();
+    final TextEditingController waterFrequencySuggestion = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(title: const Text('تقييم مدة الضخ'), centerTitle: true),
@@ -37,6 +37,17 @@ class WaterSupplyScreen extends StatelessWidget {
                 onChanged: (value) => controller.waterFrequency.value = value!,
               ),
             ),
+               Obx(() => controller.waterFrequency.value == 'غير ذلك (يرجى الشرح)'
+                ? Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: TextField(
+                    textDirection: TextDirection.rtl,
+                      controller: waterFrequencySuggestion,
+                      decoration: const InputDecoration(labelText: 'يرجى الشرح'),
+                      onChanged: (value) => controller.waterFrequencySuggestion.value = value,
+                    ),
+                )
+                : const SizedBox()),
             const SizedBox(height: 20),
             Directionality(
               textDirection: TextDirection.rtl,
@@ -77,6 +88,7 @@ class WaterSupplyScreen extends StatelessWidget {
                   print("Water Frequency: ${controller.waterFrequency.value}");
                   print("Water Sufficiency: ${controller.waterSufficiency.value}");
                 }
+                controller.postWaterFlowFeedback();
                 showThankYouDialog(context);
               },
               child: const Text('ارسال التقييم'),

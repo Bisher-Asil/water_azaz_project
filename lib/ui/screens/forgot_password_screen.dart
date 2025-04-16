@@ -7,7 +7,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _phoneController = TextEditingController();
     AccountController accountController = Get.find();
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -28,7 +28,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               TextField(
-                controller: _emailController,
+                controller: _phoneController,
                 decoration: InputDecoration(
                   labelText: 'رقم الهاتف'.tr,
                   border: const OutlineInputBorder(),
@@ -39,7 +39,14 @@ class ForgotPasswordScreen extends StatelessWidget {
               const SizedBox(height: 24.0),
               Center(
                 child: ElevatedButton(
-                  onPressed: () => accountController.passwordResetRequest(_emailController.text.isEmail ? _emailController.text : ""),
+                  onPressed: ()  {
+                    final phoneNumber = _phoneController.text;
+                    if (phoneNumber.isNotEmpty) {
+                      accountController.getSecurityQuestion(phoneNumber);
+                    } else {
+                      Get.snackbar('خطأ', 'يرجى إدخال رقم الهاتف');
+                    }
+                  },
                   child: Text('طلب تغيير كلمة السر'.tr),
                 ),
               ),

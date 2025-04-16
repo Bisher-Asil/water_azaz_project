@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:water_azaz_project/ui/screens/about_us.dart';
 import 'package:water_azaz_project/ui/screens/feedback_screen.dart';
 import 'package:water_azaz_project/ui/screens/forgot_password_screen.dart';
+import 'package:water_azaz_project/ui/screens/new_password_screen.dart';
 import 'package:water_azaz_project/ui/screens/register_screen.dart';
+import 'package:water_azaz_project/ui/screens/security_question.dart';
 import 'package:water_azaz_project/ui/screens/signin_screen.dart';
 
 class Routes {
@@ -36,12 +38,22 @@ class Routes {
         name: aboutUsScreen,
         page: () => const AboutUsScreen(),
         transition: Transition.noTransition),
+        GetPage(
+        name: securityQuestionScreen,
+        page: () => const SecurityQuestionScreen(),
+        transition: Transition.noTransition),
+        GetPage(
+        name: newPasswordScreen,
+        page: () => const NewPasswordScreen(),
+        transition: Transition.noTransition),
   ];
    static String signInScreen = "/signInScreen";
    static String registerScreen = "/registerScreen";
    static String forgotPasswordScreen = "/forgotPasswordScreen";
    static String feedbackScreen = "/feedbackScreen";
    static String aboutUsScreen = "/aboutUsScreen";
+   static String securityQuestionScreen = "/securityQuestionScreen";
+   static String newPasswordScreen = "/newPasswordScreen";
 
   
 }

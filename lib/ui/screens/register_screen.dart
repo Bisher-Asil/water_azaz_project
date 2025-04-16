@@ -64,113 +64,144 @@ class RegisterScreen extends StatelessWidget {
     final _NameController = TextEditingController();
     final _phoneController = TextEditingController();
     final _passwordController = TextEditingController();
+    final _securityQuestionController = TextEditingController();
+    final _securityAnswerController = TextEditingController();
     final _addressController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
     return Obx(() => Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-              child: Image.asset(
-                'assets/images/EngGate.png', // Replace with your logo asset path
-                height: 150.0,
-              ),
-            ),
-                const SizedBox(height: 20),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(labelText: 'الإسم'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'يرجى ادخال الإسم الثلاثي';
-                          }
-                          return null;
-                        },
-                        controller: _NameController,
-                        keyboardType: TextInputType.text,
-                      ),
-                      const SizedBox(height: 10),
-                      TextFormField(
-                        decoration: InputDecoration(labelText: 'رقم الهاتف'),
-                        keyboardType: TextInputType.phone,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'يرجى ادخال رقم الهاتف';
-                          }
-                          return null;
-                        },
-                        controller: _phoneController,
-                      ),
-                      const SizedBox(height: 10),
-                      accountController.signInStatus.value ? Container(): TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'كلمة السر',
-                        ),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'يرجى ادخال كلمة السر'.tr;
-                          }
-                          return null;
-                        },
-                        controller: _passwordController,
-                        keyboardType: TextInputType.text,
-                      ) ,
-                      const SizedBox(height: 10),
-                      TextFormField(
-                        decoration: InputDecoration(labelText: 'العنوان'),
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'يرجى ادخال العنوان';
-                          }
-                          return null;
-                        },
-                        controller: _addressController,
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Checkbox(value: true, onChanged: (value) {}),
-                          Text('انا اقبل في التعليمات و الشروط'),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            try {
-                              // Get the user's location
-                              Position position = await _determinePosition(context);
-                              var fullName = _NameController.text;
-                              var phone = _phoneController.text;
-                              var password = _passwordController.text;
-                              var latitude = position.latitude;
-                              var longitude = position.longitude;
-                              var address = _addressController.text;
-
-                              // Send the registration information along with the location to the controller
-                              accountController.registerUserRequest(fullName, phone, password, latitude, longitude, address);
-                            } catch (e) {
-                              // Handle the error if location permissions are denied
-                              print(e);
-                            }
-                          }
-                        },
-                        child: Text(accountController.signInStatus.value ? "تأكيد التعديل" : 'تسجيل'),
-                      ),
-                     // accountController.signInStatus.value ? ElevatedButton(onPressed: ()=> accountController.deleteUserRequest(_passwordController.text), child: Text("حذف الحساب")) : Container()
-                    ],
-                  ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                child: Image.asset(
+                  'assets/images/EngGate.png', // Replace with your logo asset path
+                  height: 150.0,
                 ),
-              ],
+              ),
+                  const SizedBox(height: 20),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'الإسم'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'يرجى ادخال الإسم الثلاثي';
+                            }
+                            return null;
+                          },
+                          controller: _NameController,
+                          keyboardType: TextInputType.text,
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'رقم الهاتف'),
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'يرجى ادخال رقم الهاتف';
+                            }
+                            return null;
+                          },
+                          controller: _phoneController,
+                        ),
+                        const SizedBox(height: 10),
+                        accountController.signInStatus.value ? Container(): TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'كلمة السر',
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'يرجى ادخال كلمة السر'.tr;
+                            }
+                            return null;
+                          },
+                          controller: _passwordController,
+                          keyboardType: TextInputType.text,
+                        ) ,
+                        const SizedBox(height: 10),
+                          TextFormField(
+                            decoration: InputDecoration(labelText: "سؤال الأمان", helperText: "مثال: ما هو اسم مدرستك الإبتدائية؟"),
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'يرجى ادخال سؤال الأمان';
+                            }
+                            return null;
+                            },
+                            controller: _securityQuestionController,
+                          ),
+                          const SizedBox(height: 10),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'جواب سؤال الأمان'),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'يرجى ادخال جواب سؤال الأمان';
+                            }
+                            return null;
+                          },
+                          controller: _securityAnswerController,
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'العنوان'),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'يرجى ادخال العنوان';
+                            }
+                            return null;
+                          },
+                          controller: _addressController,
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Checkbox(value: true, onChanged: (value) {}),
+                            Text('انا اقبل في التعليمات و الشروط'),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              try {
+                                // Get the user's location
+                                Position position = await _determinePosition(context);
+                                var fullName = _NameController.text;
+                                var phone = _phoneController.text;
+                                var password = _passwordController.text;
+                                var latitude = position.latitude;
+                                var longitude = position.longitude;
+                                var address = _addressController.text;
+                                var securityQuestion = _securityQuestionController.text;
+                                var securityAnswer = _securityAnswerController.text;
+
+                                // Send the registration information along with the location to the controller
+                                accountController.registerUserRequest(fullName, phone, password, latitude, longitude, address,securityQuestion, securityAnswer);
+                              } catch (e) {
+                                // Handle the error if location permissions are denied
+                                print(e);
+                              }
+                            }
+                          },
+                          child: Text(accountController.signInStatus.value ? "تأكيد التعديل" : 'تسجيل'),
+                        ),
+                       // accountController.signInStatus.value ? ElevatedButton(onPressed: ()=> accountController.deleteUserRequest(_passwordController.text), child: Text("حذف الحساب")) : Container()
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
