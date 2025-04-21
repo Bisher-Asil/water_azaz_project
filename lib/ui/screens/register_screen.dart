@@ -85,11 +85,14 @@ class RegisterScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Image.asset(
-                          'assets/images/EngGate.png', // Replace with your logo asset path
-                          height: 150.0,
-                        ),
-                      ),
+                    child:Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/EngGate.png', width: 150, height: 150),
+                    Image.asset('assets/images/fieldReadyTurk.png', width: 100, height: 50),
+                  ],
+                ),
+                  ),
                       const SizedBox(height: 20),
                       Form(
                         key: _formKey,

@@ -36,12 +36,11 @@ class SignInScreen extends StatelessWidget {
                   SizedBox(height: 40.0),
                   // Big logo at the top
                   Center(
-                    child:Row(
+                    child:Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/EngGate.png', width: 100, height: 100),
-                    const SizedBox(width: 16),
-                    Image.asset('assets/images/fieldReadyTurk.png', width: 100, height: 100),
+                    Image.asset('assets/images/EngGate.png', width: 150, height: 150),
+                    Image.asset('assets/images/fieldReadyTurk.png', width: 100, height: 50),
                   ],
                 ),
                   ),

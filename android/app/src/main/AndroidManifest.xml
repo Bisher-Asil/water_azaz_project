@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
    <application
-        android:label="مشروع ماء عزاز"
+        android:label="تقييم جودة المياه - اعزاز"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
