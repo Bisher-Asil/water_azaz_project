@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_azaz_project/services/auth_service.dart';
 import 'package:water_azaz_project/services/flow_service.dart';
+import 'package:water_azaz_project/ui/widgets/thank_you_dialog.dart';
 
 class WaterFlowController extends GetxController {
   AuthService authService = Get.find<AuthService>();
@@ -12,7 +14,7 @@ class WaterFlowController extends GetxController {
   var flowSuggestion = ''.obs;
 
   // Observable variables
-  void postWaterFlowFeedback() async {
+  void postWaterFlowFeedback(BuildContext context) async {
     String? token = await authService.getToken();
     if(token == null) {
       Get.snackbar("خطأ", "يرجى تسجيل الدخول أولاً");
@@ -26,6 +28,9 @@ class WaterFlowController extends GetxController {
     String sentWaterSufficiency = waterSufficiency.value == 'لا' ? flowSuggestion.value : waterFrequencySuggestion.value;
     bool success = await FlowService.postWaterFlow(token, sentWaterFrequency, sentWaterSufficiency);
     if(success) {
+      if(context.mounted){
+        showThankYouDialog(context);
+      }
       Get.snackbar("نجحت العملية", "تم ارسال رأيكم بنجاح");
     } else {
       Get.snackbar("خطأ", "حصل خطأ أثناء ارسال رأيكم, يرجى المحاولة لاحقاً");

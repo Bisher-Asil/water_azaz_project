@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_azaz_project/services/auth_service.dart';
 import 'package:water_azaz_project/services/quality_service.dart';
+import 'package:water_azaz_project/ui/widgets/thank_you_dialog.dart';
 
 class WaterQualityController extends GetxController {
   AuthService authService = Get.find<AuthService>();
@@ -14,7 +16,7 @@ class WaterQualityController extends GetxController {
   var otherWaterTaste = ''.obs;
   
 
-  void postWaterQualityFeedback() async{
+  void postWaterQualityFeedback(BuildContext context) async{
     String? token = await authService.getToken();
     if(token == null) {
       Get.snackbar("Error", "User not authenticated");
@@ -28,6 +30,9 @@ class WaterQualityController extends GetxController {
     }
     bool success = await QualityService.postWaterQuality(token, sendWaterColor, sendWaterTaste);
     if(success) {
+      if(context.mounted){
+        showThankYouDialog(context);
+      }
       Get.snackbar("نجحت العملية", "تم ارسال رأيكم بنجاح");
     } else {
       Get.snackbar("خطأ", "يرجى المحاولة لاحقاً");

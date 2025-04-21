@@ -69,8 +69,7 @@ class WaterQualityScreen extends StatelessWidget {
                 : const SizedBox()),
                             ElevatedButton(
               onPressed: () {
-                controller.postWaterQualityFeedback();
-                showThankYouDialog(context);
+                controller.postWaterQualityFeedback(context);
               },
               child: const Text('إرسال التقييم'),),
           ],

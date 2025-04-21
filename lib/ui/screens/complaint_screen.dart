@@ -12,7 +12,7 @@ class ComplaintScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FeedbackController controller = Get.find<FeedbackController>();
-
+    controller.showAttachedMedia.value = false;
     return Scaffold(
       appBar: AppBar(title: const Text('إرسال شكوى'),centerTitle: true),
       body: SingleChildScrollView(
@@ -53,12 +53,12 @@ class ComplaintScreen extends StatelessWidget {
                 child: const Text('إرفاق صورة / فيديو'),
               ),
 
-              Obx(() => controller.attachedMedia.value != null
+              Obx(() => controller.showAttachedMedia.value
                   ? Image.file(File(controller.attachedMedia.value!.path))
                   : const SizedBox()),
                               ElevatedButton(
-                onPressed: () {controller.postFeedback();
-                   showThankYouDialog(context);}, //TODO: Make this appear in the controller not here...
+                onPressed: () {controller.postFeedback(context);
+                   }, //TODO: Make this appear in the controller not here...
                 child: const Text('إرسال التقييم'),),
             ],
           ),

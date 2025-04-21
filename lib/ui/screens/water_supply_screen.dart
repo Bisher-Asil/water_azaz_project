@@ -88,8 +88,7 @@ class WaterSupplyScreen extends StatelessWidget {
                   print("Water Frequency: ${controller.waterFrequency.value}");
                   print("Water Sufficiency: ${controller.waterSufficiency.value}");
                 }
-                controller.postWaterFlowFeedback();
-                showThankYouDialog(context);
+                controller.postWaterFlowFeedback(context);
               },
               child: const Text('ارسال التقييم'),
             ),
