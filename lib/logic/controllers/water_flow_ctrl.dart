@@ -20,12 +20,12 @@ class WaterFlowController extends GetxController {
       Get.snackbar("خطأ", "يرجى تسجيل الدخول أولاً");
       return;
     }
-    if(waterFrequency.value.isEmpty || waterFrequencySuggestion.value.isEmpty) {
+    String sentWaterFrequency = waterFrequency.value ==  'غير ذلك (يرجى الشرح)' ? waterFrequencySuggestion.value : waterFrequency.value;
+    String sentWaterSufficiency = waterSufficiency.value == 'لا' ? flowSuggestion.value : waterSufficiency.value;
+    if(sentWaterFrequency.isEmpty || sentWaterSufficiency.isEmpty) {
       Get.snackbar("خطأ", "يرجى ملء جميع الحقول");
       return;
     }
-    String sentWaterFrequency = waterFrequency.value ==  'غير ذلك (يرجى الشرح)' ? waterFrequencySuggestion.value : waterFrequency.value;
-    String sentWaterSufficiency = waterSufficiency.value == 'لا' ? flowSuggestion.value : waterFrequencySuggestion.value;
     bool success = await FlowService.postWaterFlow(token, sentWaterFrequency, sentWaterSufficiency);
     if(success) {
       if(context.mounted){

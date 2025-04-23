@@ -158,18 +158,23 @@ class SignInScreen extends StatelessWidget {
                   const SizedBox(height: 16.0),
           
                   // Sign Up button
-                  Center(
-                    child: TextButton(
+                   ElevatedButton(
                       onPressed: () {
-                        Get.toNamed(Routes.registerScreen);
-                        // Sign up logic here
+                      Get.toNamed(Routes.registerScreen);
+                      // Sign up logic here
                       },
                       child: Text(
-                        'تسجيل',
-                        style: const TextStyle(color: Colors.blue),
+                      'تسجيل مستخدم جديد',
+                      style: const TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
                       ),
                     ),
-                  ),
+                  
                 ],
               ),
             ),
